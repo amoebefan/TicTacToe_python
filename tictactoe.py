@@ -43,7 +43,7 @@ def BrettVoll(Spielbrett):
             return False
     return True
 
-# Das Spiel mit 2 menschlichen Spielern
+# Das Spiel mit 2 Spielern
 def TicTacToe2Spieler(Spielbrett):
     Feldernamen(Spielbrett)
     print('Die Felder des Spielbrettes haben folgende Bezeichnungen:')
