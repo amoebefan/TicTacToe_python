@@ -11,6 +11,7 @@ def SpielbrettAusgabe(Spielbrett):
     Zeile2=[Spielbrett['a21'], Spielbrett['a22'], Spielbrett['a23']]
     Zeile3=[Spielbrett['a31'], Spielbrett['a32'], Spielbrett['a33']]
     print(tabulate([Zeile1, Zeile2, Zeile3], tablefmt='grid'))
+    print('\n')
 
 # Jedem key (=Feld) des Dictionarys (=Spielbrett) wird dessen Name als value (=Eintrag) zugewiesen,
 # um die Feldernamen anzuzeigen
@@ -79,7 +80,6 @@ def TicTacToe2Spieler(Spielbrett):
             Zug = 'O'
         else:
             Zug = 'X'
-    print('Danke fürs Spielen!')
 
 # Das Spiel gegen einen Computer
 def TicTacToeGegenComputer(Spielbrett):
@@ -87,7 +87,7 @@ def TicTacToeGegenComputer(Spielbrett):
     print('Die Felder des Spielbrettes haben folgende Bezeichnungen:')
     SpielbrettAusgabe(Spielbrett)
     LeeresSpielbrett(Spielbrett)
-    Zug = 'X' # X ist der menschliche Spieler, O der Computer
+    Zug = 'X' # X ist der Spieler, O der Computer
     while True:
         print(Zug + ' ist dran.') # Ausgabe, welcher Spieler an der Reihe ist
         if Zug == 'X':
@@ -126,6 +126,31 @@ def TicTacToeGegenComputer(Spielbrett):
             Zug = 'O'
         else:
             Zug = 'X'
-    print('Danke fürs Spielen!')
 
-TicTacToeGegenComputer(Spielbrett)
+# Spielmenü mit Spielmodus-Auswahl und der Möglichkeit, mehrere Runden zu spielen
+while True:
+    print('Willkommen zu Tic-Tac-Toe!')
+    print('Wähle einen Spielmodus\na = 2 Spieler; b = Spiel gegen einfachen Computer')
+    while True:
+        Spielmodus = input('Spielmodus: ')
+        if Spielmodus == 'a':
+            TicTacToe2Spieler(Spielbrett)
+            break
+        elif Spielmodus == 'b':
+            TicTacToeGegenComputer(Spielbrett)
+            break
+        else:
+            print('Bitte validen Spielmodus auswählen.')
+            continue
+    while True:
+        Weiterspielen = input('Noch eine Runde spielen? (j=ja, n=nein)')
+        if Weiterspielen == 'n':
+            print('Danke fürs Spielen!')
+            break
+        elif Weiterspielen == 'j':
+            break
+        else:
+            print('Bitte \'j\' oder \'n\' eingeben.')
+            continue
+    if Weiterspielen == 'n':
+        break
