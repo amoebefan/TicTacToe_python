@@ -81,7 +81,7 @@ def TicTacToe2Spieler(Spielbrett):
         else:
             Zug = 'X'
 
-# Das Spiel gegen einen Computer
+# Das Spiel gegen einen einfachen Computer
 def TicTacToeGegenComputer(Spielbrett):
     Feldernamen(Spielbrett)
     print('Die Felder des Spielbrettes haben folgende Bezeichnungen:')
