@@ -92,7 +92,7 @@ def TicTacToeGegenComputer(Spielbrett):
         print(Zug + ' ist dran.') # Ausgabe, welcher Spieler an der Reihe ist
         if Zug == 'X':
             Feld = input('Bitte das gewünschte Feld eingeben: ') # Input des gewünschten Feldes
-        elif 'O':
+        elif Zug == 'O':
             # noch leere Felder in eine Liste schreiben
             moeglicheFelder = []
             for feld in Spielbrett.keys():
@@ -127,6 +127,50 @@ def TicTacToeGegenComputer(Spielbrett):
         else:
             Zug = 'X'
 
+# Hilfsfunktion für MiniMax
+def WerGewinnt(Spielbrett, Zeichen):
+    return( Spielbrett['a11']==Spielbrett['a12']==Spielbrett['a13'] == Zeichen or # erste Zeile
+            Spielbrett['a21']==Spielbrett['a22']==Spielbrett['a23'] == Zeichen or # zweite Zeile
+            Spielbrett['a31']==Spielbrett['a32']==Spielbrett['a33'] == Zeichen or # dritte Zeile
+            Spielbrett['a11']==Spielbrett['a21']==Spielbrett['a31'] == Zeichen or # erste Spalte
+            Spielbrett['a12']==Spielbrett['a22']==Spielbrett['a32'] == Zeichen or # zweite Spalte
+            Spielbrett['a13']==Spielbrett['a23']==Spielbrett['a33'] == Zeichen or # dritte Spalte
+            Spielbrett['a11']==Spielbrett['a22']==Spielbrett['a33'] == Zeichen or # Hauptdiagonale
+            Spielbrett['a13']==Spielbrett['a22']==Spielbrett['a31'] == Zeichen    # Nebendiagonale
+            )
+
+
+# MiniMax-Funktion für den unbesiegbaren Computer
+def minimax(Spielbrett, Maximieren):
+    if WerGewinnt(Spielbrett, 'X') == True:
+        return -1
+    if WerGewinnt(Spielbrett, 'O') == True:
+        return 1
+    elif BrettVoll == True:
+        return 0
+
+    if Maximieren == True:
+        besteBewertung = -100
+        for feld in Spielbrett.keys():
+            if Spielbrett[feld] == ' ':
+                Spielbrett[feld] = 'O'
+                ZugBewertung = minimax(Spielbrett, False)
+                Spielbrett[feld] = ' '
+                if ZugBewertung > besteBewertung:
+                    besteBewertung = ZugBewertung
+        return besteBewertung
+    else:
+        besteBewertung = 100
+        for feld in Spielbrett.keys():
+            if Spielbrett[feld] == ' ':
+                Spielbrett[feld] = 'X'
+                ZugBewertung = minimax(Spielbrett, True)
+                Spielbrett[feld] = ' '
+                if ZugBewertung < besteBewertung:
+                    besteBewertung = ZugBewertung
+        return besteBewertung
+
+
 # Das Spiel gegen einen unbesiegbaren Computer
 def TicTacToeGegenMiniMax(Spielbrett):
     Feldernamen(Spielbrett)
@@ -138,14 +182,19 @@ def TicTacToeGegenMiniMax(Spielbrett):
         print(Zug + ' ist dran.') # Ausgabe, welcher Spieler an der Reihe ist
         if Zug == 'X':
             Feld = input('Bitte das gewünschte Feld eingeben: ') # Input des gewünschten Feldes
-        elif 'O':
-            # noch leere Felder in eine Liste schreiben
-            moeglicheFelder = []
+        elif Zug == 'O':
+            besteBewertung = -100
+            besterZug = 'a'
             for feld in Spielbrett.keys():
                 if Spielbrett[feld] == ' ':
-                    moeglicheFelder.append(feld)
-            # Computer wählt zufälliges Feld aus dieser Liste aus
-            Feld = choice(moeglicheFelder)
+                    Spielbrett[feld] = Zug
+                    ZugBewertung = minimax(Spielbrett, False)
+                    Spielbrett[feld] = ' '
+                    if ZugBewertung > besteBewertung:
+                        besteBewertung = ZugBewertung
+                        besterZug = feld
+            Feld = besterZug
+
         #Testen, ob der Input ein noch nicht belegtes Spielfeld ist
         if Feld in Spielbrett.keys():
             if Spielbrett[Feld] == ' ':
@@ -176,7 +225,7 @@ def TicTacToeGegenMiniMax(Spielbrett):
 # Spielmenü mit Spielmodus-Auswahl und der Möglichkeit, mehrere Runden zu spielen
 while True:
     print('Willkommen zu Tic-Tac-Toe!')
-    print('Wähle einen Spielmodus\na = 2 Spieler; b = Spiel gegen einfachen Computer')
+    print('Wähle einen Spielmodus\na = 2 Spieler; b = Spiel gegen einfachen Computer; c = Spiel gegen unbesiegbaren Computer')
     while True:
         Spielmodus = input('Spielmodus: ')
         if Spielmodus == 'a':
@@ -184,6 +233,9 @@ while True:
             break
         elif Spielmodus == 'b':
             TicTacToeGegenComputer(Spielbrett)
+            break
+        elif Spielmodus == 'c':
+            TicTacToeGegenMiniMax(Spielbrett)
             break
         else:
             print('Bitte validen Spielmodus auswählen.')
