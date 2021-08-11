@@ -139,14 +139,13 @@ def WerGewinnt(Spielbrett, Zeichen):
             Spielbrett['a13']==Spielbrett['a22']==Spielbrett['a31'] == Zeichen    # Nebendiagonale
             )
 
-
 # MiniMax-Funktion für den unbesiegbaren Computer
 def minimax(Spielbrett, Maximieren):
     if WerGewinnt(Spielbrett, 'X') == True:
         return -1
-    if WerGewinnt(Spielbrett, 'O') == True:
+    elif WerGewinnt(Spielbrett, 'O') == True:
         return 1
-    elif BrettVoll == True:
+    elif BrettVoll(Spielbrett) == True:
         return 0
 
     if Maximieren == True:
