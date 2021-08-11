@@ -127,49 +127,6 @@ def TicTacToeGegenComputer(Spielbrett):
         else:
             Zug = 'X'
 
-# Hilfsfunktion für MiniMax
-def WerGewinnt(Spielbrett, Zeichen):
-    return( Spielbrett['a11']==Spielbrett['a12']==Spielbrett['a13'] == Zeichen or # erste Zeile
-            Spielbrett['a21']==Spielbrett['a22']==Spielbrett['a23'] == Zeichen or # zweite Zeile
-            Spielbrett['a31']==Spielbrett['a32']==Spielbrett['a33'] == Zeichen or # dritte Zeile
-            Spielbrett['a11']==Spielbrett['a21']==Spielbrett['a31'] == Zeichen or # erste Spalte
-            Spielbrett['a12']==Spielbrett['a22']==Spielbrett['a32'] == Zeichen or # zweite Spalte
-            Spielbrett['a13']==Spielbrett['a23']==Spielbrett['a33'] == Zeichen or # dritte Spalte
-            Spielbrett['a11']==Spielbrett['a22']==Spielbrett['a33'] == Zeichen or # Hauptdiagonale
-            Spielbrett['a13']==Spielbrett['a22']==Spielbrett['a31'] == Zeichen    # Nebendiagonale
-            )
-
-# MiniMax-Funktion für den unbesiegbaren Computer
-def minimax(Spielbrett, Maximieren):
-    if WerGewinnt(Spielbrett, 'X') == True:
-        return -1
-    elif WerGewinnt(Spielbrett, 'O') == True:
-        return 1
-    elif BrettVoll(Spielbrett) == True:
-        return 0
-
-    if Maximieren == True:
-        besteBewertung = -100
-        for feld in Spielbrett.keys():
-            if Spielbrett[feld] == ' ':
-                Spielbrett[feld] = 'O'
-                ZugBewertung = minimax(Spielbrett, False)
-                Spielbrett[feld] = ' '
-                if ZugBewertung > besteBewertung:
-                    besteBewertung = ZugBewertung
-        return besteBewertung
-    else:
-        besteBewertung = 100
-        for feld in Spielbrett.keys():
-            if Spielbrett[feld] == ' ':
-                Spielbrett[feld] = 'X'
-                ZugBewertung = minimax(Spielbrett, True)
-                Spielbrett[feld] = ' '
-                if ZugBewertung < besteBewertung:
-                    besteBewertung = ZugBewertung
-        return besteBewertung
-
-
 # Das Spiel gegen einen unbesiegbaren Computer
 def TicTacToeGegenMiniMax(Spielbrett):
     Feldernamen(Spielbrett)
@@ -220,6 +177,48 @@ def TicTacToeGegenMiniMax(Spielbrett):
             Zug = 'O'
         else:
             Zug = 'X'
+
+# Hilfsfunktion für MiniMax
+def WerGewinnt(Spielbrett, Zeichen):
+    return( Spielbrett['a11']==Spielbrett['a12']==Spielbrett['a13'] == Zeichen or # erste Zeile
+            Spielbrett['a21']==Spielbrett['a22']==Spielbrett['a23'] == Zeichen or # zweite Zeile
+            Spielbrett['a31']==Spielbrett['a32']==Spielbrett['a33'] == Zeichen or # dritte Zeile
+            Spielbrett['a11']==Spielbrett['a21']==Spielbrett['a31'] == Zeichen or # erste Spalte
+            Spielbrett['a12']==Spielbrett['a22']==Spielbrett['a32'] == Zeichen or # zweite Spalte
+            Spielbrett['a13']==Spielbrett['a23']==Spielbrett['a33'] == Zeichen or # dritte Spalte
+            Spielbrett['a11']==Spielbrett['a22']==Spielbrett['a33'] == Zeichen or # Hauptdiagonale
+            Spielbrett['a13']==Spielbrett['a22']==Spielbrett['a31'] == Zeichen    # Nebendiagonale
+            )
+
+# MiniMax-Funktion für den unbesiegbaren Computer
+def minimax(Spielbrett, Maximieren):
+    if WerGewinnt(Spielbrett, 'X') == True:
+        return -1
+    elif WerGewinnt(Spielbrett, 'O') == True:
+        return 1
+    elif BrettVoll(Spielbrett) == True:
+        return 0
+
+    if Maximieren == True:
+        besteBewertung = -100
+        for feld in Spielbrett.keys():
+            if Spielbrett[feld] == ' ':
+                Spielbrett[feld] = 'O'
+                ZugBewertung = minimax(Spielbrett, False)
+                Spielbrett[feld] = ' '
+                if ZugBewertung > besteBewertung:
+                    besteBewertung = ZugBewertung
+        return besteBewertung
+    else:
+        besteBewertung = 100
+        for feld in Spielbrett.keys():
+            if Spielbrett[feld] == ' ':
+                Spielbrett[feld] = 'X'
+                ZugBewertung = minimax(Spielbrett, True)
+                Spielbrett[feld] = ' '
+                if ZugBewertung < besteBewertung:
+                    besteBewertung = ZugBewertung
+        return besteBewertung
 
 # Spielmenü mit Spielmodus-Auswahl und der Möglichkeit, mehrere Runden zu spielen
 while True:
