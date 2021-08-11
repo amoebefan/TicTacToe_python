@@ -3,15 +3,15 @@ from random import choice
 
 # Definition des Spielbretts als Dictionary; die keys sind die Feldernamen
 # Die Feldnamen sind in der Form 'aij', wobei i für den Zeilenindex und j für den Spaltenindex steht
-Spielbrett={'a11':'', 'a12':'', 'a13':'', 'a21':'', 'a22':'', 'a23':'', 'a31':'', 'a32':'', 'a33': ''}
+Spielbrett={'a11':'', 'a12':'', 'a13':'', 'a21':'', 'a22':'', 'a23':'', 'a31':'', 'a32':'', 'a33':''}
 
 # Definition der Ausgabe des Spielbretts
 def SpielbrettAusgabe(Spielbrett):
     Zeile1=[Spielbrett['a11'], Spielbrett['a12'], Spielbrett['a13']]
     Zeile2=[Spielbrett['a21'], Spielbrett['a22'], Spielbrett['a23']]
     Zeile3=[Spielbrett['a31'], Spielbrett['a32'], Spielbrett['a33']]
-    print(tabulate([Zeile1, Zeile2, Zeile3], tablefmt='grid'))
-    print('\n')
+    print(tabulate([Zeile1, Zeile2, Zeile3], tablefmt='grid')) # tabulate erstellt eine schöne Tabelle als Spielfeld
+    print('\n') # nach dem Spielfeld folgt eine  Leerzeile
 
 # Jedem key (=Feld) des Dictionarys (=Spielbrett) wird dessen Name als value (=Eintrag) zugewiesen,
 # um die Feldernamen anzuzeigen
@@ -40,8 +40,8 @@ def Gewinn(Spielbrett):
 def BrettVoll(Spielbrett):
     for feld in Spielbrett.keys():
         if Spielbrett[feld] == ' ':
-            return False
-    return True
+            return False # sobald ein Feld noch leer ist, ist das Spielbrett noch nicht voll
+    return True # wenn keines der Felder leer ist, ist das Spielbrett voll
 
 # Das Spiel mit 2 Spielern
 def TicTacToe2Spieler(Spielbrett):
