@@ -127,6 +127,52 @@ def TicTacToeGegenComputer(Spielbrett):
         else:
             Zug = 'X'
 
+# Das Spiel gegen einen unbesiegbaren Computer
+def TicTacToeGegenMiniMax(Spielbrett):
+    Feldernamen(Spielbrett)
+    print('Die Felder des Spielbrettes haben folgende Bezeichnungen:')
+    SpielbrettAusgabe(Spielbrett)
+    LeeresSpielbrett(Spielbrett)
+    Zug = 'X' # X ist der Spieler, O der Computer
+    while True:
+        print(Zug + ' ist dran.') # Ausgabe, welcher Spieler an der Reihe ist
+        if Zug == 'X':
+            Feld = input('Bitte das gewünschte Feld eingeben: ') # Input des gewünschten Feldes
+        elif 'O':
+            # noch leere Felder in eine Liste schreiben
+            moeglicheFelder = []
+            for feld in Spielbrett.keys():
+                if Spielbrett[feld] == ' ':
+                    moeglicheFelder.append(feld)
+            # Computer wählt zufälliges Feld aus dieser Liste aus
+            Feld = choice(moeglicheFelder)
+        #Testen, ob der Input ein noch nicht belegtes Spielfeld ist
+        if Feld in Spielbrett.keys():
+            if Spielbrett[Feld] == ' ':
+                Spielbrett[Feld] = Zug
+            else:
+                print('Dieses Feld ist bereits belegt.')
+                continue
+        else:
+            print('Bitte ein valides Spielfeld eingeben.')
+            continue
+
+        SpielbrettAusgabe(Spielbrett)
+
+        # Prüfen, ob das Spiel vorbei ist
+        if Gewinn(Spielbrett) == True:
+            print(Zug + ' hat gewonnen.')
+            break
+        elif BrettVoll(Spielbrett) == True:
+            print('Unenschieden')
+            break
+
+        # Am Ende des Zuges wird auf den anderen Spieler gewechselt
+        if Zug == 'X':
+            Zug = 'O'
+        else:
+            Zug = 'X'
+
 # Spielmenü mit Spielmodus-Auswahl und der Möglichkeit, mehrere Runden zu spielen
 while True:
     print('Willkommen zu Tic-Tac-Toe!')
