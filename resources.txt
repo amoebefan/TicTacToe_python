@@ -1,1 +1,3 @@
 Sweigart, A. (2019). Automate the Boring Stuff with Python (2nd Edition). https://automatetheboringstuff.com/2e/chapter5/
+Java Coding Community - Programming Tutorials (2021). Tic Tac Toe AI with MiniMax using Python | Part 2: Minimax. https://www.youtube.com/watch?v=2Tr8LkyU78c
+Java Coding Community - Programming Tutorials (2021). TicTacToeAI-with-Minimax. https://github.com/javacodingcommunity/TicTacToeAI-with-Minimax
