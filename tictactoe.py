@@ -72,7 +72,7 @@ def TicTacToe2Spieler(Spielbrett):
             print(Zug + ' hat gewonnen.')
             break
         elif BrettVoll(Spielbrett) == True:
-            print('Unenschieden')
+            print('Unentschieden')
             break
 
         # Am Ende des Zuges wird auf den anderen Spieler gewechselt
@@ -92,24 +92,25 @@ def TicTacToeGegenComputer(Spielbrett):
         print(Zug + ' ist dran.') # Ausgabe, welcher Spieler an der Reihe ist
         if Zug == 'X':
             Feld = input('Bitte das gewünschte Feld eingeben: ') # Input des gewünschten Feldes
+            #Testen, ob der Input ein noch nicht belegtes Spielfeld ist
+            if Feld in Spielbrett.keys():
+                if Spielbrett[Feld] == ' ':
+                    Spielbrett[Feld] = Zug
+                else:
+                    print('Dieses Feld ist bereits belegt.')
+                    continue
+            else:
+                print('Bitte ein valides Spielfeld eingeben.')
+                continue
         elif Zug == 'O':
             # noch leere Felder in eine Liste schreiben
             moeglicheFelder = []
             for feld in Spielbrett.keys():
                 if Spielbrett[feld] == ' ':
                     moeglicheFelder.append(feld)
-            # Computer wählt zufälliges Feld aus dieser Liste aus
+            # Computer wählt zufälliges Feld aus dieser Liste aus und spielt seinen Zug
             Feld = choice(moeglicheFelder)
-        #Testen, ob der Input ein noch nicht belegtes Spielfeld ist
-        if Feld in Spielbrett.keys():
-            if Spielbrett[Feld] == ' ':
-                Spielbrett[Feld] = Zug
-            else:
-                print('Dieses Feld ist bereits belegt.')
-                continue
-        else:
-            print('Bitte ein valides Spielfeld eingeben.')
-            continue
+            Spielbrett[Feld] = Zug
 
         SpielbrettAusgabe(Spielbrett)
 
@@ -118,7 +119,7 @@ def TicTacToeGegenComputer(Spielbrett):
             print(Zug + ' hat gewonnen.')
             break
         elif BrettVoll(Spielbrett) == True:
-            print('Unenschieden')
+            print('Unentschieden')
             break
 
         # Am Ende des Zuges wird auf den anderen Spieler gewechselt
@@ -138,29 +139,33 @@ def TicTacToeGegenMiniMax(Spielbrett):
         print(Zug + ' ist dran.') # Ausgabe, welcher Spieler an der Reihe ist
         if Zug == 'X':
             Feld = input('Bitte das gewünschte Feld eingeben: ') # Input des gewünschten Feldes
+            #Testen, ob der Input ein noch nicht belegtes Spielfeld ist
+            if Feld in Spielbrett.keys():
+                if Spielbrett[Feld] == ' ':
+                    Spielbrett[Feld] = Zug
+                else:
+                    print('Dieses Feld ist bereits belegt.')
+                    continue
+            else:
+                print('Bitte ein valides Spielfeld eingeben.')
+                continue
         elif Zug == 'O':
-            besteBewertung = -100
-            besterZug = 'a'
+            # Computer wählt besten Zug via MiniMax-Algorithmus
+            besteBewertung = -100 # Computer versucht die Bewertung zu maximieren; daher wird ein sehr niedriger Initialwert gewählt
+            besterZug = 'a' # a ist ein Platzhalter als Initiierung für den besten Zug
+            # der Computer spielt jeden möglichen Zug und ermittelt für diesen eine Bewertung mittels MiniMax
             for feld in Spielbrett.keys():
                 if Spielbrett[feld] == ' ':
                     Spielbrett[feld] = Zug
                     ZugBewertung = minimax(Spielbrett, False)
                     Spielbrett[feld] = ' '
+                    # der Computer wählt den Zug mit der höchsten Bewertung, i.e. er maximiert
                     if ZugBewertung > besteBewertung:
                         besteBewertung = ZugBewertung
                         besterZug = feld
+            # Computer spielt den ermittelten besten Zug
             Feld = besterZug
-
-        #Testen, ob der Input ein noch nicht belegtes Spielfeld ist
-        if Feld in Spielbrett.keys():
-            if Spielbrett[Feld] == ' ':
-                Spielbrett[Feld] = Zug
-            else:
-                print('Dieses Feld ist bereits belegt.')
-                continue
-        else:
-            print('Bitte ein valides Spielfeld eingeben.')
-            continue
+            Spielbrett[Feld] = Zug
 
         SpielbrettAusgabe(Spielbrett)
 
@@ -169,7 +174,7 @@ def TicTacToeGegenMiniMax(Spielbrett):
             print(Zug + ' hat gewonnen.')
             break
         elif BrettVoll(Spielbrett) == True:
-            print('Unenschieden')
+            print('Unentschieden')
             break
 
         # Am Ende des Zuges wird auf den anderen Spieler gewechselt
