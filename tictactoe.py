@@ -241,6 +241,7 @@ def minimax(Spielbrett, Maximieren):
 while True:
     print('Willkommen zu Tic-Tac-Toe!')
     print('Wähle einen Spielmodus\na = 2 Spieler; b = Spiel gegen einfachen Computer; c = Spiel gegen unbesiegbaren Computer')
+    # Wahl des Spielmodus
     while True:
         Spielmodus = input('Spielmodus: ')
         if Spielmodus == 'a':
@@ -255,6 +256,7 @@ while True:
         else:
             print('Bitte validen Spielmodus auswählen.')
             continue
+    # Wahl, ob eine weitere Runde gespielt werden soll
     while True:
         Weiterspielen = input('Noch eine Runde spielen? (j=ja, n=nein)')
         if Weiterspielen == 'n':
