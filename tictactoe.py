@@ -197,10 +197,15 @@ def WerGewinnt(Spielbrett, Zeichen):
 
 # MiniMax-Funktion für den unbesiegbaren Computer
 def minimax(Spielbrett, Maximieren):
+    # erreicht die rekursive MiniMax-Funktion das Ende des Spiels, gib sie je einen entsprechenden Wert aus
+    # gewinnt der Gegner des Computers, i.e. der Spieler, wird -1 ausgegeben.
+    # der Computer maximiert, i.e. er will eine möglichst hohe Zugbewertung; daher ist dies für ihn die schlechteste Bewertung
     if WerGewinnt(Spielbrett, 'X') == True:
         return -1
+    # ein Sieg für den Computer liefert das beste Ergebnis 1
     elif WerGewinnt(Spielbrett, 'O') == True:
         return 1
+    # ein Unentschieden liefert 0; es ist für den Computer besser als zu verlieren, aber schlechter als zu gewinnen
     elif BrettVoll(Spielbrett) == True:
         return 0
 
