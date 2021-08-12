@@ -209,6 +209,13 @@ def minimax(Spielbrett, Maximieren):
     elif BrettVoll(Spielbrett) == True:
         return 0
 
+    # hier kommt die Rekursion der Funktion ins Spiel
+    # der Computer spielt alle möglichen Szenarien aus und ermittelt so den besten Zug
+    # der beste Zug für den Computer ist einer mit maximalem Wert, für den Spieler mit minimalem Wert
+    # ist der Computer am Zug, maximiert er (Maximieren == True) und ruft dann erneut die MiniMax-Funktion auf
+    # dort simuliert er den Zug seines Gegners und ermittelt den bestmöglichen, indem er dessen Zugbewertung minimiert
+    # so wechseln sich der Computer (Maximieren) und sein Gegner (Minimieren) solange ab, bis das Ende des Spiels erreicht ist
+    # die entsprechende Zugbewertung wird ausgegeben und, sollte sie besser als die vorherige sein, gespeichert
     if Maximieren == True:
         besteBewertung = -100
         for feld in Spielbrett.keys():
