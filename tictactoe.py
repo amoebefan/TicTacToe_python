@@ -1,4 +1,4 @@
-from tabulate import tabulate 
+from tabulate import tabulate
 from random import choice
 
 # Definition des Spielbretts als Dictionary; die keys sind die Feldernamen
