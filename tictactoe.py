@@ -183,7 +183,7 @@ def TicTacToeGegenMiniMax(Spielbrett):
         else:
             Zug = 'X'
 
-# Hilfsfunktion für MiniMax
+# Hilfsfunktion für MiniMax zum Erkennen, welcher Spieler gewinnt
 def WerGewinnt(Spielbrett, Zeichen):
     return( Spielbrett['a11']==Spielbrett['a12']==Spielbrett['a13'] == Zeichen or # erste Zeile
             Spielbrett['a21']==Spielbrett['a22']==Spielbrett['a23'] == Zeichen or # zweite Zeile
